@@ -1,0 +1,42 @@
+(5)
+public class Main {
+    public static void main(String[] args) {
+        int[] myArray = {1, 3, 2, 4, 3, 1, 5, 2, 1, 3};
+        int[] histogram = new int[5];
+        for (int i = 0; i < myArray.length; i++) {
+            histogram[myArray[i] - 1]++;
+        }
+        for (int i = 0; i < histogram.length; i++) {
+            System.out.print(i + 1 + ": ");
+            for (int j = 0; j < histogram[i]; j++) {
+                System.out.print("*");
+            }
+            System.out.println();
+        }
+    }
+}
+
+
+
+(7)
+public class Main {
+    public static void main(String[] args) {
+        int[] arr = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+        boolean found = false;
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = i + 1; j < arr.length; j++) {
+                if (arr[i] + arr[j] == 10) {
+                    System.out.println(arr[i] + " " + arr[j]);
+                    found = true;
+                    break;
+                }
+            }
+            if (found) {
+                break;
+            }
+        }
+        if (!found) {
+            System.out.println("No two elements in the array add up to 10");
+        }
+    }
+}
