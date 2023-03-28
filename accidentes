@@ -1,0 +1,25 @@
+import pandas as pd
+
+def analisis_calle_30(df):
+    
+    df_calle_30 = df[df["LUGAR_INCIDENTE"].str.contains("CALLE 30") & df["DIRECCION_INCIDENTE"].str.contains("CALLE_NUMERO")]
+
+   
+    accidentes_gravedad = df_calle_30.groupby("GRAVEDAD_ACCIDENTE")["GRAVEDAD_ACCIDENTE"].count()
+
+    
+    clase_mas_accidente = df_calle_30["CLASE_ACCIDENTE"].value_counts().idxmax()
+    cantidad_accidentes = df_calle_30["CLASE_ACCIDENTE"].value_counts().max()
+
+    
+    max_heridos = df_calle_30["CANTIDAD_HERIDOS"].max()
+    fecha_accidente = df_calle_30.loc[df_calle_30["CANTIDAD_HERIDOS"] == max_heridos, "FECHA_ACCIDENTE"].iloc[0]
+
+
+    return {"clase_mas_accidente": (clase_mas_accidente, cantidad_accidentes),
+            "accidentes_gravedad": accidentes_gravedad.to_dict(),
+            "cantidad_max_heridos": (max_heridos, fecha_accidente.strftime("%d/%m/%Y"))}
+
+df = pd.read_csv("accidentes.csv", sep=";")
+resultado = analisis_calle_30(df)
+print(resultado)
